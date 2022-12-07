@@ -21,14 +21,22 @@ def load_thscan(file_path):
     return np.array(vt), thscan, chip
 
 # ---------- statistics ---------------
-def mark_autsending_pixels(a,margin_in_sigma):        
+def mark_autliners(a,margin, unit):        
     a = np.asarray(a,dtype =np.float32)    
     
     median = np.nanmedian(a)
-    mad = stats.median_abs_deviation(a,nan_policy='omit',scale='normal',axis=None)
+   
     
-    low_range  = median-(margin_in_sigma*mad)        
-    high_range = median+(margin_in_sigma*mad)     
+    if unit == 'sigma':
+        mad = stats.median_abs_deviation(a,nan_policy='omit',scale='normal',axis=None)
+        range_ = margin*mad
+    elif unit =='lsb':
+        range_ = margin
+    else:
+        print('!!! mark_autliners argument')
+    
+    low_range  = median-range_       
+    high_range = median+range_    
 
     bad = ( (a < low_range) | (a > high_range))
     a[bad]=np.nan
@@ -36,7 +44,7 @@ def mark_autsending_pixels(a,margin_in_sigma):
     return a
 
 def float_a_statistics(a): #treshold in %     
-    return np.nanmean(a), np.nanstd(a), np.nanmin(a)-np.nanmean(a), np.nanmax(a)-np.nanmean(a)
+    return np.nanmedian(a), np.nanstd(a), np.nanmin(a), np.nanmax(a)
 
 def float_a_image(a,title, folder = None, file_name_stem=None):
     
@@ -60,8 +68,22 @@ def float_a_image(a,title, folder = None, file_name_stem=None):
     
 # import from labview binary file
 
-def import_thscan_from_labview_binary_file_ufxc(file_path):
+def import_thscan_from_labview_binary_file_ufxc(file_path,vt_start):
     a = np.fromfile(file_path, dtype=np.uint16)
-    a = np.reshape(a,(152,256,128))
+    a = np.reshape(a,(len(a)//256//128,256,128))
     a = a[:-1]
-    return np.arange(a.shape[0]), a, None 
+    return np.arange(vt_start,vt_start+a.shape[0]), a, None 
+    
+
+# currently not used
+
+def fit_rise_centers_from_treshols_endpoints(counts,treshold):
+
+    treshold_above = counts > treshold
+    treshold_left = np.argmax(treshold_above,axis=0)
+    treshold_right = len(counts)-1-np.argmax(np.flip(treshold_above,axis=0),axis=0)    
+    centers_tresholds_mean = (treshold_left+treshold_right)//2
+    
+    centers_counts_max = np.argmax(counts,axis=0)
+    
+    return np.where(treshold_above[0] | treshold_above[-1] |(np.logical_not(np.any(treshold_above,axis=0))),centers_counts_max,centers_tresholds_mean )    

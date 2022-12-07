@@ -1,0 +1,9 @@
+from lib_general import load_thscan,import_thscan_from_labview_binary_file_ufxc
+
+ROOT = Path(SCAN_FOLDER)
+
+vt,counts, chip = load_thscan(ROOT/FILE)
+
+# ## From LabView
+# fn = r'D:\Pomiary\LNPIXRG\2022-11-16\PXI\1\thrScan.bin'
+# vt,counts, chip = import_thscan_from_labview_binary_file_ufxc(fn,100)

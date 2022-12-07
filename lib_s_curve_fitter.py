@@ -29,14 +29,14 @@ def __fit(y,center,sigma,slope,intercept, fit_approx_plot):
         return ((-1*ampl)*erf((x-cener)/(sigma*np.sqrt(2)))+ampl)*((slope*x)+intercept) + ((slope_*x)+intercept_)  + offset  
     x = np.arange(len(y), dtype=np.uint16)    
     try:
-        fit_result, _ = curve_fit(err_func, x, y,p0=[10_000,center,sigma,slope,intercept, slope,intercept, 200])
+        fit_result, _ = curve_fit(err_func, x, y,p0=[y[0],center,sigma,slope,intercept, slope,intercept, 0])
         return True, fit_result[1],fit_result[2], err_func(x, *fit_result) if fit_approx_plot else None
     except:
         return False, 0,0, None  
 
 def _fit(y,margin,fit_approx_plot = True):  
     init = find_fit_init_params(y,margin)
-    slope_init = -20
+    slope_init = 0 #-20
     y = y[:init[0]]    
     return __fit(y,init[1],init[2],slope_init,init[3],fit_approx_plot)
 
