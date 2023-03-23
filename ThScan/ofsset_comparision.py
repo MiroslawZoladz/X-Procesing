@@ -1,17 +1,13 @@
 import sys; sys.path.append('../lib')
 
 import numpy as np
-# from scipy import stats
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 from pathlib import Path
-# # import helper, re
 
 from lib_general import load_thscan, mark_autliners
-
 import pandas as pd
-
 from tabulate import tabulate
 
 
@@ -19,11 +15,9 @@ NOT_CORECTED_THSCAN = r'C:\scan\trimdac_scans\discr=0\32.npy'
 CORECTED_THSCAN = r'C:\scan\thscan.npy'
 
 
-HIST_RANGE = 0,400
-NOT_COR_OUTLINING_RANGE = 3
-COR_OUTLINING_RANGE = 9
-
-HIST_RANGE = (0,1024)
+HIST_RANGE = 0,500
+NOT_COR_OUTLINING_RANGE = 100
+COR_OUTLINING_RANGE = 10
 
 
 #=========== MAIN ====================================
@@ -36,7 +30,7 @@ CORECTED_THSCAN = Path(CORECTED_THSCAN)
 # statystyka
 vt,counts, chip = load_thscan(NOT_CORECTED_THSCAN)
 not_cor_offsets = np.argmax(counts,axis=0)+vt[0]
-not_cor_offsets = mark_autliners(not_cor_offsets,NOT_COR_OUTLINING_RANGE)        
+not_cor_offsets = mark_autliners(not_cor_offsets,margin=NOT_COR_OUTLINING_RANGE, unit='lsb')        
 not_cor_mean , not_cor_stdev, not_cor_outliners_nr =  np.nanmean(not_cor_offsets), np.nanstd(not_cor_offsets), np.sum(np.isnan(not_cor_offsets))
 
 # ------------ COR -----------------        
@@ -44,7 +38,7 @@ not_cor_mean , not_cor_stdev, not_cor_outliners_nr =  np.nanmean(not_cor_offsets
 # wyznaczenie srodków risów
 vt,counts, chip = load_thscan(CORECTED_THSCAN)
 cor_offsets = np.argmax(counts, axis=0)
-cor_offsets = mark_autliners(cor_offsets,COR_OUTLINING_RANGE)+vt[0]
+cor_offsets = mark_autliners(cor_offsets,margin=COR_OUTLINING_RANGE, unit='lsb')+vt[0]
 cor_mean , cor_stdev, cor_outliners_nr =  np.nanmean(cor_offsets), np.nanstd(cor_offsets), np.sum(np.isnan(cor_offsets))        
 
 # --------------- figures -----------------

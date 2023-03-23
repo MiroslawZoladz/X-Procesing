@@ -7,7 +7,7 @@ from lib_general import load_thscan, pix_crds_sampler
 
 #------- PARAMS -----------------
 CENTERS_FILE_PATH =r'C:\scan\trimdac_scans'
-DISCR_LIST = 1,
+DISCR_LIST = 0,
 TRIM_VT = 180 
 
 SAMPLE_PIXEL_NR = 250

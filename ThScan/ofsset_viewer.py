@@ -1,16 +1,18 @@
 # =========== PARAMETERS =========================
 # SCAN_FOLDER = r'C:\Users\User\Desktop\measurements\lnpix\2022-11-08_porownanie_szumow_zasilacze_kontrolery\1_Ctl=Python_Supp=Lab'
 SCAN_FOLDER = r'C:\scan'
-# SCAN_FOLDER = r'C:\scan\trimdac_scans\discr=0'
+# SCAN_FOLDER = r'C:\scan\trimdac_scans\discr=3'
 # SCAN_FOLDER = r'D:\MZ_pomiary\MPIX\2022-11-16'
 
 # FILE = r'32.npy'
 FILE = r'thscan.npy'
 
-HIST_RANGE = 100,300
-OUTLINING_RANGE = 5
+HIST_RANGE = 0,500
+OUTLINING_RANGE = 10
 
 #=========== CODE =================
+import go_parent_dir
+go_parent_dir.do()
 
 import numpy as np
 import matplotlib.pyplot as plt

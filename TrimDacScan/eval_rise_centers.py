@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 # ---- PARAMS -----
 ROOT = Path(r'C:\scan\trimdac_scans')
-DRISCRS = 0,1#,2,3
+DRISCRS = 1,2,3
 # ------ MAIN ------------
 
 for discr in DRISCRS:

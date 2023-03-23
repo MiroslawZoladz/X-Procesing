@@ -1,23 +1,13 @@
 # =========== PARAMETERS =========================
 # SCAN_FOLDER = r'C:\Users\User\Desktop\measurements\lnpix\2022-11-08_porownanie_szumow_zasilacze_kontrolery\1_Ctl=Python_Supp=Lab'
 SCAN_FOLDER = r'C:\scan'
-# SCAN_FOLDER = r'C:\scan\trimdac_scans\discr=0'
-# SCAN_FOLDER = r'D:\MZ_pomiary\MPIX\2022-11-16'
 
-# SCAN_FOLDER = r'C:\scan\5a_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-# SCAN_FOLDER = r'C:\scan\5b_ikrum=   ; igm=   ; vt0=225; vt1=  s; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-# SCAN_FOLDER = r'C:\scan\5c_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-# SCAN_FOLDER = r'C:\scan\5d_ikrum=   ; igm=   ; vt0=225; vt1=  s; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-
-# SCAN_FOLDER = r'C:\scan\6a_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW=0; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-# SCAN_FOLDER = r'C:\scan\6b_ikrum=   ; igm=   ; vt0=225; vt1=  s; DIS_DYN_SW=0; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-# SCAN_FOLDER = r'C:\scan\6c_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW=0; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-# SCAN_FOLDER = r'C:\scan\6d_ikrum=   ; igm=   ; vt0=225; vt1=  s; DIS_DYN_SW=0; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-
-SCAN_FOLDER = r'C:\scan\7a_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-SCAN_FOLDER = r'C:\scan\7c_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-SCAN_FOLDER = r'C:\scan\8a_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW=0; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-SCAN_FOLDER = r'C:\scan\8c_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW=0; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
+# SCAN_FOLDER = r'C:\scan\5a_istr= ; vt0=  s; vt1=   ; DIS_DYN_SW= ; str_off= ; str_ctr= ;'
+# SCAN_FOLDER = r'C:\scan\5b_istr= ; vt0=245; vt1=  s; DIS_DYN_SW= ; str_off= ; str_ctr= ;'
+# SCAN_FOLDER = r'C:\scan\6a_istr= ; vt0=  s; vt1=   ; DIS_DYN_SW=0; str_off= ; str_ctr= ;'
+# SCAN_FOLDER = r'C:\scan\6b_istr= ; vt0=245; vt1=  s; DIS_DYN_SW=0; str_off= ; str_ctr= ;'
+# SCAN_FOLDER = r'C:\scan\9a_istr= ; vt0=  s; vt1=   ; DIS_DYN_SW=0; str_off= ; str_ctr=0;'
+# SCAN_FOLDER = r'C:\scan\9b_istr= ; vt0=245; vt1=  s; DIS_DYN_SW=0; str_off= ; str_ctr=0;'
 
 
 # FILE = r'0.npy'
@@ -25,8 +15,8 @@ FILE = r'thscan.npy'
 
 
 SAMPLE_NR = 50
-ROI_COL = 0+24-10,96-24-10,#LNPIXRG#100,120 #64-10,64+10
-ROI_ROW = 0+48,196-48#LNPIXRG128-10,128+10
+ROI_COL = 5,90,#LNPIXRG#100,120 #64-10,64+10
+ROI_ROW = 5,185#LNPIXRG128-10,128+10
 
 VT_RANGE = None #300,600#None #300,600 #220,350
 COUNTS_RANGE = 0, 4096 #0,2000
