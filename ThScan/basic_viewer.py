@@ -1,26 +1,29 @@
 # =========== PARAMETERS =========================
+MSR_FOLDER = r'C:\Users\User\OneDrive\measurements\mpix\2023-04-05\modul_2' # musai być z r' na początku
 # SCAN_FOLDER = r'C:\scan'
-SCAN_FOLDER = r'c:\scan\0150mA\5a_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-SCAN_FOLDER = r'c:\scan\0150mA\5b_ikrum=   ; igm=   ; vt0=240; vt1=  s; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
-SCAN_FOLDER = r'c:\scan\0150mA\5c_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-SCAN_FOLDER = r'c:\scan\0150mA\5d_ikrum=   ; igm=   ; vt0=260; vt1=  s; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
+SCAN_FOLDER = '5a_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
+SCAN_FOLDER = '5b_ikrum=   ; igm=   ; vt0=240; vt1=  s; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
+SCAN_FOLDER = '5c_ikrum=   ; igm=   ; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
+SCAN_FOLDER = '5d_ikrum=   ; igm=   ; vt0=250; vt1=  s; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
 
-SCAN_FOLDER = r'c:\scan\0150mA\7c_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
-SCAN_FOLDER = r'c:\scan\0150mA\7d_ikrum=  2; igm= 32; vt0=300; vt1=  s; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
+SCAN_FOLDER = '7a_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
+SCAN_FOLDER = '7b_ikrum=  2; igm= 32; vt0=240; vt1=  s; DIS_DYN_SW= ; MPR_en= ; bgshc_W= ; bgshc_N= ; bgshc_NW= ;'
+SCAN_FOLDER = '7c_ikrum=  2; igm= 32; vt0=  s; vt1=   ; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
+SCAN_FOLDER = '7d_ikrum=  2; igm= 32; vt0=240; vt1=  s; DIS_DYN_SW= ; MPR_en=1; bgshc_W=1; bgshc_N=1; bgshc_NW=1;'
 
 # SCAN_FILE = r'thscan.npy'
-SCAN_FILE = r'0.npy'
-
-
+SCAN_FILE = r'd0.npy'
+SCAN_FILE = r'd1.npy'
+# 
 SAMPLE_NR = 50
 
-COL_RANGE = 0,96#LNPIXRG#100,120 #64-10,64+10
-ROW_RANGE = 0,192#LNPIXRG128-10,128+10
+COL_RANGE = 20,40#LNPIXRG#100,120 #64-10,64+10
+ROW_RANGE = 75,100#LNPIXRG128-10,128+10
 
 VT_RANGE = None #300,600#None #300,600 #220,350
 COUNTS_RANGE = 0, 4096 #0,2000
 
-COUNTS_IMAGE_VT=230
+COUNTS_IMAGE_VT=300
 
 REMOVE_OUTLINERS=True
 OUTLINING_MARGIN = 31
@@ -36,7 +39,7 @@ import matplotlib as mpl
 from pathlib import Path
 from lib_general import load_thscan, pix_crds_sampler, mark_autliners, import_thscan_from_labview_binary_file_ufxc
 
-ROOT = Path(SCAN_FOLDER)
+ROOT = Path(MSR_FOLDER) / SCAN_FOLDER
 
 vt,counts, chip = load_thscan(ROOT/SCAN_FILE)
 
@@ -63,8 +66,8 @@ if REMOVE_OUTLINERS:
     counts = np.where(~inv,counts,np.nan)
 
 # PLOTS    
-plt.rcParams.update({'font.size': 15})
-plt.figure(figsize = (10,4));plt.grid();
+plt.rcParams.update({'font.size': 11})
+plt.figure(figsize = (5.5,2.5));plt.grid();
 
 if VT_RANGE:
     plt.xlim(*VT_RANGE)
@@ -81,6 +84,7 @@ for r,c in pix_crds:
         plt.plot(vt,y,'-')        
 plt.xlabel('vt[lsb]')
 plt.ylabel('count')
+plt.title(SCAN_FILE.split('.')[0])
 
 plt.plot(vt,cts_med, color='black',linewidth=3)
 
@@ -101,11 +105,13 @@ cts_roi = cts[row_roi_ix,col_roi_ix]
 min_=np.nanmin(cts_roi)
 max_=np.nanmax(cts_roi)
 clim = min_,max_
-cts *= 0.95
-cts[row_roi_ix,col_roi_ix] *= 1.2
+# cts *= 0.95
+cts[row_roi_ix,col_roi_ix] *= 1.1
 plt.imshow(cts.T,interpolation='none',cmap=cmap,clim=clim)
 plt.colorbar(location="right")
 plt.savefig(ROOT/'image.png')  
+plt.xlabel('ROWS')
+plt.ylabel('COLS')
 plt.show()
 
 
