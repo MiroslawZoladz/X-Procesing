@@ -8,11 +8,11 @@ SCAN_FOLDER = r'C:\scan'
 FILE = r'thscan.npy'
 
 HIST_RANGE = 0,500
-OUTLINING_RANGE = 10
+OUTLINING_RANGE = 5
 
 #=========== CODE =================
-import go_parent_dir
-go_parent_dir.do()
+import _go_parent_dir
+_go_parent_dir.do()
 
 import numpy as np
 import matplotlib.pyplot as plt
